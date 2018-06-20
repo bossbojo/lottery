@@ -1,0 +1,28 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-right">
+      <button class="btn btn-primary" (click)="OnAddName()"><i class="fas fa-plus-circle" ></i> เพิ่มชื่อ</button>
+      <button class="btn btn-info" (click)="OnSearch()"><i class="fas fa-search"></i> ค้นหา</button>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table table-sm">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">ชื่อ</th>
+          <th scope="col">ค้างชำระ</th>
+          <th scope="col">ตัวเลือก</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>500.00</td>
+          <td><button class="btn btn-warning" (click)="OnPay()"><i class="fas fa-money-bill-wave-alt"></i> จ่าย</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

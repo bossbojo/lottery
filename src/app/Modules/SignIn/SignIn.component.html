@@ -1,0 +1,14 @@
+<form [formGroup]="FormSignIn" (submit)="OnSubmit()">
+  <div class="login">
+    <div class="text-center">
+      <img src="assets\img\logo.png" width="80px;">
+    </div>
+    <div class="form-group">
+      <div class="text-center">
+        <label for="usr">รหัสผู้ใช้งาน</label>
+      </div>
+      <input type="tel" class="form-control text-center" placeholder="YYMM00000" id="usr" formControlName="username">
+    </div>
+    <button class="btn btn-danger" (submit)="OnSubmit()">เข้าสู่ระบบ</button>
+  </div>
+</form>

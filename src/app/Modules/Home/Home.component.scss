@@ -1,0 +1,28 @@
+
+.btn{
+    width: 100%;
+    background: none;
+    border: 1px solid #aaaaaa;
+    padding-top:15px;
+    padding-bottom:15px;
+}
+.col-6{
+    margin-bottom: 10px;
+    padding: 5px;
+}
+.bg-gray{
+    background-color: #e8ebee;
+    padding: 10px;
+}
+.alert-date{
+    font-size: 11px;
+}
+.btn-prolong{
+    border: none;
+    background-color: #9698e9;
+    border-radius: 4px;
+    color: white;
+    &:active{
+        background-color: #b6b7ef;
+    }
+}

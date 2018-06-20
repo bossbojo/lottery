@@ -1,0 +1,17 @@
+.layout-main{
+    padding-top:65px;
+    padding-bottom: 100px;
+}
+.loading{
+    z-index: 1;
+    display: none;
+    background-color: white;
+    padding-top:250px;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    img{
+        width: 40px;
+    }
+}

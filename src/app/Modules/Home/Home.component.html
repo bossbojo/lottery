@@ -1,0 +1,52 @@
+<div class="bg-gray" *ngIf="User">
+  <span class="alert-date">สามารถใช้ได้จนถึง {{User.Expire_dt | date:'dd/MM/yyyy'}} (เหลืออีก {{User.Count_Expire_day}} วัน)
+    <button class="btn-prolong" [routerLink]="['/',Url.ProLong]">ต่ออายุ</button>
+  </span>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6 text-center">
+      <button class="btn" style="color: seagreen;" [routerLink]="['/',Url.Book]">
+        <i class="fas fa-address-book fa-2x"></i>
+        <br>สมุดรายชื่อ
+      </button>
+    </div>
+    <div class="col-6 text-center">
+      <button class="btn" style="color: #fc8003;" [routerLink]="['/',Url.SummedUp]">
+        <i class="fas fa-coins fa-2x"></i>
+        <br>สรุปยอด
+      </button>
+    </div>
+    <div class="col-6 text-center">
+      <button class="btn" style="color: #76a2e2;" [routerLink]="['/',Url.ListBuy]">
+        <i class="fas fa-list-alt fa-2x"></i>
+        <br>รายการซื้อ
+      </button>
+    </div>
+    <div class="col-6 text-center">
+      <button class="btn" style="color: #95bf6a;" [routerLink]="['/',Url.CheckLottery]">
+        <i class="fas fa-calendar-check fa-2x"></i>
+        <br>ตรวจรางวัล
+      </button>
+    </div>
+    <div class="col-6 text-center">
+      <button class="btn" style="color: #808080;" [routerLink]="['/',Url.SendTo]">
+        <i class="fas fa-share-square fa-2x"></i>
+        <br>ส่งหวยต่อ
+      </button>
+    </div>
+    <div class="col-6 text-center">
+      <button class="btn" style="color: #004040;" [routerLink]="['/',Url.Setting]">
+        <i class="fas fa-cogs fa-2x"></i>
+        <br>ตั้งค่า
+      </button>
+    </div>
+    <div class="col-6 text-center">
+      <button class="btn" style="color: #004080;" [routerLink]="['/',Url.Profile]">
+        <i class="fas fa-user-alt fa-2x"></i>
+        <br>โปรไฟล์
+      </button>
+    </div>
+  </div>
+</div>

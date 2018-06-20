@@ -1,0 +1,8 @@
+<app-navbar *ngIf="Authened"></app-navbar>
+<div class="loading">
+  <img src="assets\img\Spinner.gif">
+</div>
+<div class="layout-main">
+    <router-outlet (activate)="onGetComponent($event)"></router-outlet>
+</div>
+<app-footer *ngIf="Authened"></app-footer>

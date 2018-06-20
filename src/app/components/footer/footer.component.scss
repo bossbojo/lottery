@@ -1,0 +1,11 @@
+.btn-footer {
+  color: #7d7d7d;
+  &:active {
+    cursor: pointer;
+    background-color: #cecece;
+  }
+}
+
+.active {
+  background-color: #cecece;
+}
