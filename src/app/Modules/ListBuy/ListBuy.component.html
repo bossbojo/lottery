@@ -1,3 +1,105 @@
-<p>
-  ListBuy works!
-</p>
+<div class="bg-gray">
+  <span class="alert-date">
+    <a class="btn-map" [routerLink]="['/',Url.Home]">
+      <i class="fas fa-bars"></i> เมนูหลัก</a> / ซื้อหวยประจำงวดวันที่ {{today | date:'dd/MM/yyyy'}}
+  </span>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="sel1">
+          <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
+        <select class="form-control" id="sel1">
+          <option>นามสมมุติ</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label for="sel1">
+          <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
+        <select class="form-control" id="sel1">
+          <option>หวยไทย</option>
+          <option>หวยลาว</option>
+          <option>หวยฮานอย</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="FormBuying">
+    <div class="row" style="padding-left:20px;">
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" value="two" formControlName="type">เลขท้าย 2 ตัว
+        </label>
+      </div>
+      <div class="form-check-inline">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" value="three" formControlName="type">เลขท้าย 3 ตัว
+        </label>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <ng-container *ngIf="FormBuying.value.type == 'two'">
+        <div class="col-4">
+          <div class="form-group">
+            <input type="tel" class="form-control text-center" placeholder="XX">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="check-box">
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="up">บน
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="down">ล่าง
+              </label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="FormBuying.value.type == 'three'">
+        <div class="col-4">
+          <div class="form-group">
+            <input type="tel" class="form-control text-center" placeholder="XXX">
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="check-box">
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="straight">โต๊ด
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" formControlName="straight">เต็ง
+              </label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <div class="col-5">
+        <div class="form-group">
+          <input type="tel" class="form-control text-center" placeholder="ราคา">
+        </div>
+      </div>
+      <div class="col-1 x">
+        <span>X</span>
+      </div>
+      <div class="col-5">
+        <div class="form-group">
+          <input type="tel" class="form-control text-center" placeholder="ราคา">
+        </div>
+      </div>
+      <div class="col-12">
+        <button class="btn btn-danger" style="width: 100%;">เพิ่มการซื้อหวย</button>
+      </div>
+    </div>
+  </form>
+</div>

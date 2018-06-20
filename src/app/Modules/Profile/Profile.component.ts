@@ -1,3 +1,6 @@
+import { UrlConfig } from './../../configs/url.config';
+import { FormBuilder, FormGroup,Validators } from '@angular/forms';
+import { AuthenticationService } from './../../services/authentication.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,8 +9,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./Profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
-  constructor() { }
+  User: any;
+  FormProfile:FormGroup;
+  Url = UrlConfig
+  constructor(private Authen: AuthenticationService,private build: FormBuilder) {
+    this.User = Authen.User;
+    this.FormProfile = this.build.group({
+      Name:[this.User.Name,[Validators.required]]
+    });
+  }
 
   ngOnInit() {
   }

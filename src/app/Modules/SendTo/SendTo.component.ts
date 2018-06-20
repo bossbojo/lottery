@@ -1,3 +1,4 @@
+import { UrlConfig } from './../../configs/url.config';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./SendTo.component.scss']
 })
 export class SendToComponent implements OnInit {
-
+  Url = UrlConfig;
   constructor() { }
 
   ngOnInit() {

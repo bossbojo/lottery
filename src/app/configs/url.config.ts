@@ -6,6 +6,7 @@ export const UrlConfig = {
     Book:'book',
     SummedUp:'summed-up',
     ListBuy:'list-buy',
+    ListBuying:'list-buying',
     CheckLottery:'check-lottery',
     SendTo:'send-to',
     Setting:'setting',

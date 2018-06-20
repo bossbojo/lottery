@@ -1,3 +1,88 @@
-<p>
-  CheckLottery works!
-</p>
+<div class="bg-gray">
+  <span class="alert-date">
+    <a class="btn-map" [routerLink]="['/',Url.Home]">
+      <i class="fas fa-bars"></i> เมนูหลัก</a> / ตรวจสอบรางวัลประจำงวดวันที่ {{today | date:'dd/MM/yyyy'}}
+  </span>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="form-check-inline">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optradio">หวยไทย
+      </label>
+    </div>
+    <div class="form-check-inline">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optradio">หวยลาว
+      </label>
+    </div>
+    <div class="form-check-inline disabled">
+      <label class="form-check-label">
+        <input type="radio" class="form-check-input" name="optradio" disabled>หวยฮานอย
+      </label>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-6 text-center">
+      <span>
+        เลขท้าย 2 ตัว
+      </span>
+      <div class="form-group">
+        <input type="tel" class="form-control text-center" placeholder="XX">
+      </div>
+    </div>
+    <div class="col-6 text-center">
+      <span>
+        เลขท้าย 3 ตัว
+      </span>
+      <div class="form-group">
+        <input type="tel" class="form-control text-center" placeholder="XXX">
+      </div>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-danger" style="width: 100%;">ตรวจรางวัล</button>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <label>งวดนี้ที่ตรวจเเล้ว</label>
+    <table class="table table-sm">
+      <tbody class="text-center">
+        <tr>
+          <td class="text-left">หวยไทย</td>
+          <td>09</td>
+          <td>896</td>
+          <td class="corrent"><i class="fas fa-male"></i> 9</td>
+          <td>
+            <a style="color: #80ff55;">
+              <i class="fas fa-edit"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-left">หวยลาว</td>
+          <td>88</td>
+          <td>691</td>
+          <td class="corrent"><i class="fas fa-male"></i> 9</td>
+          <td>
+            <a style="color: #80ff55;">
+              <i class="fas fa-edit"></i>
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-left">หวยฮานอย</td>
+          <td>87</td>
+          <td>456</td>
+          <td class="corrent"><i class="fas fa-male"></i> 9</td>
+          <td>
+            <a style="color: #80ff55;">
+              <i class="fas fa-edit"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

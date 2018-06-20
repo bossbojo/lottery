@@ -1,3 +1,29 @@
-<p>
-  Profile works!
-</p>
+<div class="bg-gray">
+  <span class="alert-date">
+      <a class="btn-map" [routerLink]="['/',Url.Home]"><i class="fas fa-bars"></i> เมนูหลัก</a> / โปรไฟล์ของคุณ
+  </span>
+</div>
+<div class="container">
+  <form [formGroup]="FormProfile">
+    <div class="row">
+      <div class="col-6">
+        <label>ชื่อผู้ใช้งาน :</label>
+      </div>
+      <div class="col-6">
+        <label *ngIf="!OpenEdit">{{User.Name}}
+          <span style="color: #77ce79;" (click)="OpenEdit = true">
+            <i class="fas fa-edit"></i>
+          </span>
+        </label>
+        <div class="form-group" *ngIf="OpenEdit">
+          <input type="tel" class="form-control text-center" formControlName="Name" id="Share">
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="text-right" *ngIf="OpenEdit">
+      <button class="btn btn-info" (click)="OpenEdit = false">ยกเลิก</button>
+      <button class="btn btn-success">บันทึก</button>
+    </div>
+  </form>
+</div>

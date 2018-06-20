@@ -37,6 +37,11 @@ export const RoutesList: Routes = [
         canActivate:[AuthenticationGuard]
     },
     {
+        path: Url.ListBuying,
+        loadChildren: 'app/Modules/ListBuying/ListBuying.module#ListBuyingModule',
+        canActivate:[AuthenticationGuard]
+    },
+    {
         path: Url.CheckLottery,
         loadChildren: 'app/Modules/CheckLottery/CheckLottery.module#CheckLotteryModule',
         canActivate:[AuthenticationGuard]

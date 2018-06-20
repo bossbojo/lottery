@@ -5,6 +5,13 @@
     }
 }
 .btn-danger{
-    width: 100%;
+    display: initial !important;
+    width: 280px;
     padding: 5px;
+    position: relative;
+}
+.form-control{
+    display: initial !important;
+    position: relative;
+    width: 280px;
 }

@@ -1,0 +1,105 @@
+<div class="bg-gray">
+    <span class="alert-date">
+      <a class="btn-map" [routerLink]="['/',Url.Home]">
+        <i class="fas fa-bars"></i> เมนูหลัก</a> / รายการซื้อประจำงวดวันที่ {{today | date:'dd/MM/yyyy'}}
+    </span>
+  </div>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <label for="sel1">
+          <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
+        <select class="form-control" id="sel1">
+          <option>นามสมมุติ</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+        <label for="sel1">
+          <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
+        <select class="form-control" id="sel1">
+          <option>หวยไทย</option>
+          <option>หวยลาว</option>
+          <option>หวยฮานอย</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-right">
+      <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#AddCopyLotteryModal">
+        <i class="fas fa-copy"></i> เพิ่มเเบบ copy
+      </button>
+    </div>
+    <table class="table table-sm">
+      <thead class="text-center">
+        <tr>
+          <th scope="col">เลข=(ราคาxราคา)</th>
+          <th scope="col">หวย</th>
+          <th scope="col">เล่นแบบ</th>
+          <th scope="col">ตัวเลือก</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <tr>
+          <td class="text-left">65=(20x20)</td>
+          <td class="text-left">ไทย</td>
+          <td>บน,ล่าง</td>
+          <td>
+            <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#EditLotteryModal">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-danger">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!--Edit Lottery Modal -->
+<div class="modal fade" id="EditLotteryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><i class="fas fa-edit"></i> เเก้ไขการซื้อหวย</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ยกเลิก</button>
+          <button type="button" class="btn btn-sm btn-primary">บันทึก</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Add Copy Lottery Modal -->
+<div class="modal fade" id="AddCopyLotteryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="AddCopyLotteryModal"><i style="color: #7d7dff;" class="fas fa-copy"></i> เพิ่มการซื้อเเบบ Copy</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label class="petten">รูปเเบบที่สามารถรับได้ "เลข=ราคาXราคา"</label>
+          <textarea class="form-control" style="width:100%;" rows="6"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ยกเลิก</button>
+          <button type="button" class="btn btn-sm btn-primary">บันทึก</button>
+        </div>
+      </div>
+    </div>
+  </div>

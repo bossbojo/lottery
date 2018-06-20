@@ -1,3 +1,4 @@
+import { UrlConfig } from './../../configs/url.config';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./CheckLottery.component.scss']
 })
 export class CheckLotteryComponent implements OnInit {
-
+  Url =UrlConfig
+  today = Date.now();
   constructor() { }
 
   ngOnInit() {

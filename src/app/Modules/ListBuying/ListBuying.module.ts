@@ -1,8 +1,8 @@
 import { SharedModule } from './../shared.module';
+import { ListBuyingRoutes } from './ListBuying.routing';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SettingComponent } from './Setting.component';
-import { SettingRoutes } from './Setting.routing';
+import { ListBuyingComponent } from './ListBuying.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -11,8 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     SharedModule,
     CommonModule,
-    SettingRoutes
+    ListBuyingRoutes
   ],
-  declarations: [SettingComponent]
+  declarations: [ListBuyingComponent]
 })
-export class SettingModule { }
+export class ListBuyingModule { }

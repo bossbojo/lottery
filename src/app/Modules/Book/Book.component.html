@@ -1,3 +1,8 @@
+<div class="bg-gray">
+    <span class="alert-date">
+        <a class="btn-map" [routerLink]="['/',Url.Home]"><i class="fas fa-bars"></i> เมนูหลัก</a> / สมุดรายชื่อ
+    </span>
+  </div>
 <div class="container">
   <div class="row">
     <div class="col-12 text-right">
@@ -7,7 +12,7 @@
   </div>
   <div class="row">
     <table class="table table-sm">
-      <thead>
+      <thead class="text-center">
         <tr>
           <th scope="col">#</th>
           <th scope="col">ชื่อ</th>
@@ -15,12 +20,16 @@
           <th scope="col">ตัวเลือก</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="text-center">
         <tr>
           <th scope="row">1</th>
-          <td>Mark</td>
-          <td>500.00</td>
-          <td><button class="btn btn-warning" (click)="OnPay()"><i class="fas fa-money-bill-wave-alt"></i> จ่าย</button></td>
+          <td class="text-left">นามสมุติ</td>
+          <td>20,000</td>
+          <td>
+            <button class="btn btn-light" (click)="OnPay()"><i class="fas fa-eye"></i> ดู</button>
+            <button class="btn btn-warning" (click)="OnPay()"><i class="fas fa-coins"></i> จ่าย</button>
+            <button class="btn btn-danger" (click)="OnDelete()"><i class="fas fa-trash-alt"></i> ลบ</button>
+          </td>
         </tr>
       </tbody>
     </table>

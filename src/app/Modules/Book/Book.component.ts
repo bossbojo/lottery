@@ -1,3 +1,4 @@
+import { UrlConfig } from './../../configs/url.config';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./Book.component.scss']
 })
 export class BookComponent implements OnInit {
-
+  Url = UrlConfig
   constructor() { }
 
   ngOnInit() {
@@ -33,6 +34,14 @@ export class BookComponent implements OnInit {
       console.log(person);
     } else {
       console.log(person);
+    }
+  }
+  OnDelete() {
+    var r = confirm("คุณต้องการลบชื่อนี้ใช่ไหม!");
+    if (r == true) {
+      console.log(r);
+    } else {
+      console.log(r);
     }
   }
 }
