@@ -1,13 +1,27 @@
-.col-6{
-    padding: 8px;
+.col-8 {
+  padding: 8px;
 }
-.row{
-    padding: 15px;
+
+.row {
+  padding: 15px;
 }
-.bg-gray{
-    background-color: #e8ebee;
-    padding: 10px;
+
+.bg-gray {
+  background-color: #e8ebee;
+  padding: 10px;
 }
-.alert-date{
-    font-size: 11px;
+
+.alert-date {
+  font-size: 11px;
+}
+
+.nav-link {
+  background-color: none;
+}
+
+Label {
+  font-size: 14px;
+}
+.col-12{
+    padding: 0px;
 }

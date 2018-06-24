@@ -16,5 +16,10 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
   }
+  OnLogOut(){
+    if(confirm('คุณต้องการออกจากระบบใช่หรือไม่')){
+      this.authen.logout()
+    }
+  }
 
 }

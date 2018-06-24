@@ -97,6 +97,13 @@
       <div class="modal-body">
         <div class="form-group">
           <label for="sel1">
+            <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
+          <select class="form-control" id="sel1">
+            <option>นามสมมุติ</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sel1">
             <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
           <select class="form-control" id="sel1" [(ngModel)]="conutry" #ctrl="ngModel">
             <option value="thailand">หวยไทย</option>
@@ -105,7 +112,31 @@
           </select>
         </div>
         <label class="petten">รูปเเบบที่สามารถรับได้ "เลข=ราคาXราคา"</label>
-        <textarea class="form-control" style="width:100%;" rows="6" [(ngModel)]="copy" #ctrl="ngModel" (change)="OnCopy()"></textarea>
+        <textarea class="form-control" style="width:100%;" rows="6" [(ngModel)]="copy" #ctrl="ngModel" (keyup)="OnCopy()"></textarea>
+        <hr>
+        <ng-container *ngIf="FromGroupCopyLottery">
+          <form [formGroup]="FromGroupCopyLottery">
+            <div class="row text-center" formArrayName="buying" *ngFor="let listbuying of FromGroupCopyLottery.get('buying').controls;let i=index">
+              <div class="col-1">
+                {{i+1}}
+              </div>
+              <div class="col-4">
+                <div class="form-group" [formGroupName]="i">
+                  <input type="tel" class="form-control text-center" formControlName="number">
+                </div>
+              </div>
+              <div class="col-6">
+                = {{ FromGroupCopyLottery.value.buying[i].price1}}x{{FromGroupCopyLottery.value.buying[i].price2}}
+                <ng-container *ngIf="FromGroupCopyLottery.value.buying[i].number.length == 2">
+                  ({{FromGroupCopyLottery.value.buying[i].price1?'บน':''}},{{FromGroupCopyLottery.value.buying[i].price2?'ล่าง':''}})
+                </ng-container>
+                <ng-container *ngIf="FromGroupCopyLottery.value.buying[i].number.length != 2">
+                  ({{FromGroupCopyLottery.value.buying[i].price1?'โต๊ด':''}},{{FromGroupCopyLottery.value.buying[i].price2?'เต็ง':''}})
+                </ng-container>
+              </div>
+            </div>
+          </form>
+        </ng-container>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ยกเลิก</button>

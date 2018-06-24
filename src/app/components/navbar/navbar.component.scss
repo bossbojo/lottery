@@ -1,0 +1,22 @@
+.hidden-bang {
+  display: inline;
+}
+
+@media screen and (max-width: 600px) {
+  .hidden-bang {
+    display: none;
+  }
+}
+
+i {
+  font-size: 23px;
+  margin-left: 12px;
+}
+
+a {
+  color: #6b6b6b;
+  text-decoration: none;
+  &:active{
+    color: #3c3c3c;
+  }
+}
