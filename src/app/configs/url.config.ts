@@ -1,4 +1,4 @@
-let production = true;
+let production = false;
 export const UrlConfig = {
     Home: '',
     Signin: 'signin',

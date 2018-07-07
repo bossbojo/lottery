@@ -5,101 +5,133 @@
   </span>
 </div>
 <div class="container">
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group">
-        <label for="sel1">
-          <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
-        <select class="form-control" id="sel1">
-          <option>นามสมมุติ</option>
-        </select>
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group">
-        <label for="sel1">
-          <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
-        <select class="form-control" id="sel1">
-          <option>หวยไทย</option>
-          <option>หวยลาว</option>
-          <option>หวยฮานอย</option>
-        </select>
-      </div>
-    </div>
-  </div>
-  <form [formGroup]="FormBuying">
-    <div class="row" style="padding-left:20px;">
-      <div class="form-check-inline">
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input" value="two" formControlName="type">เลขท้าย 2 ตัว
-        </label>
-      </div>
-      <div class="form-check-inline">
-        <label class="form-check-label">
-          <input type="radio" class="form-check-input" value="three" formControlName="type">เลขท้าย 3 ตัว
-        </label>
-      </div>
-    </div>
-    <hr>
+  <form [formGroup]="FormBuying" (submit)="OnBuyingSubmit()">
     <div class="row">
-      <ng-container *ngIf="FormBuying.value.type == 'two'">
-        <div class="col-4">
-          <div class="form-group">
-            <input type="tel" class="form-control text-center" placeholder="XX">
-          </div>
+      <div class="col-12 text-right">
+        <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#AddCopyLotteryModal">
+          <i class="fas fa-copy"></i> เพิ่มการซื้อหวยก็อบปี้/พิมพ์
+        </button>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="sel1">
+            <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
+          <select class="form-control" id="sel1" formControlName="who">
+            <option value="">กรุณาเลือก</option>
+            <option value="{{DataMembers.Id}}" *ngFor="let DataMembers of DataMember" >{{DataMembers.Name}}</option>
+          </select>
         </div>
-        <div class="col-6">
-          <div class="check-box">
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" formControlName="up">บน
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" formControlName="down">ล่าง
-              </label>
-            </div>
-          </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="sel1">
+            <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
+          <select class="form-control" id="sel1" formControlName="country">
+              <option value="">กรุณาเลือก</option>
+            <option *ngFor="let DataCountrys of DataCountry" value="{{DataCountrys.Id}}" >{{DataCountrys.country_name}}</option>
+          </select>
         </div>
-      </ng-container>
-      <ng-container *ngIf="FormBuying.value.type == 'three'">
-        <div class="col-4">
-          <div class="form-group">
-            <input type="tel" class="form-control text-center" placeholder="XXX">
-          </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-11">
+        <div class="form-group">
+          <input type="tel" class="form-control text-center"  formControlName="number" placeholder="เลข" maxlength="3">
         </div>
-        <div class="col-6">
-          <div class="check-box">
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" formControlName="straight">โต๊ด
-              </label>
-            </div>
-            <div class="form-check-inline">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" formControlName="straight">เต็ง
-              </label>
-            </div>
-          </div>
-        </div>
-      </ng-container>
+      </div>
       <div class="col-5">
         <div class="form-group">
-          <input type="tel" class="form-control text-center" placeholder="ราคา">
+          <input type="tel" class="form-control text-center"  formControlName="price1" placeholder="ราคา">
         </div>
       </div>
-      <div class="col-1 x">
+      <div class="col-1">
         <span>X</span>
       </div>
       <div class="col-5">
         <div class="form-group">
-          <input type="tel" class="form-control text-center" placeholder="ราคา">
+          <input type="tel" class="form-control text-center"  formControlName="price2" placeholder="ราคา">
+        </div>
+      </div>
+      <div class="col-12 text-center">
+        <div class="show-number" *ngIf="FormBuying.value.number">
+            {{FormBuying.value.number}} <span *ngIf="FormBuying.value.price1||FormBuying.value.price2">=</span> {{FormBuying.value.price1}} <span *ngIf="FormBuying.value.price1&&FormBuying.value.price2">x</span> {{FormBuying.value.price2}}
+            <ng-container *ngIf="FormBuying.value.number.length == 2 && (FormBuying.value.price1||FormBuying.value.price2)">
+               ({{FormBuying.value.price1?'บน':''}}{{FormBuying.value.price2?',ล่าง':''}})
+             </ng-container>
+             <ng-container *ngIf="FormBuying.value.number.length != 2 && (FormBuying.value.price1||FormBuying.value.price2)">
+               ({{FormBuying.value.price1?'โต๊ด':''}}{{FormBuying.value.price2?',เต็ง':''}})
+             </ng-container>
         </div>
       </div>
       <div class="col-12">
-        <button class="btn btn-danger" style="width: 100%;">เพิ่มการซื้อหวย</button>
+        <button class="btn btn-danger" style="width: 100%;" type="submit">เพิ่มการซื้อหวย</button>
       </div>
     </div>
   </form>
+</div>
+
+
+<!--Add Copy Lottery Modal -->
+<div class="modal fade" id="AddCopyLotteryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AddCopyLotteryModal">
+          <i style="color: #7d7dff;" class="fas fa-copy"></i> เพิ่มการซื้อเเบบ Copy</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="sel1">
+            <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
+          <select class="form-control" [(ngModel)]="member" id="sel1" (change)="OnCopy()">
+            <option value="">กรุณาเลือก</option>
+            <option value="{{DataMembers.Id}}" *ngFor="let DataMembers of DataMember">{{DataMembers.Name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="sel1">
+            <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
+          <select class="form-control" id="sel1" [(ngModel)]="conutry" #ctrl="ngModel" (change)="OnCopy()">
+            <option value="">กรุณาเลือก</option>
+            <option *ngFor="let DataCountrys of DataCountry" value="{{DataCountrys.Id}}">{{DataCountrys.country_name}}</option>
+          </select>
+        </div>
+        <label class="petten">รูปเเบบที่สามารถรับได้ "เลข=ราคาXราคา"</label>
+        <textarea class="form-control" style="width:100%;" rows="6" [(ngModel)]="copy" #ctrl="ngModel" (keyup)="OnCopy()"></textarea>
+        <hr>
+        <ng-container *ngIf="FromGroupCopyLottery">
+          <form [formGroup]="FromGroupCopyLottery">
+            <div class="row text-center" formArrayName="buying" *ngFor="let listbuying of FromGroupCopyLottery.get('buying').controls;let i=index">
+              <div class="col-1">
+                {{i+1}}
+              </div>
+              <div class="col-4">
+                <div class="form-group" [formGroupName]="i">
+                  <input type="tel" class="form-control text-center" formControlName="number">
+                </div>
+              </div>
+              <div class="col-6">
+                = {{ FromGroupCopyLottery.value.buying[i].price1}}
+                <span *ngIf="FromGroupCopyLottery.value.buying[i].price1&&FromGroupCopyLottery.value.buying[i].price2">x</span>
+                  {{FromGroupCopyLottery.value.buying[i].price2}}
+                <ng-container *ngIf="FromGroupCopyLottery.value.buying[i].number.length == 2">
+                  ({{FromGroupCopyLottery.value.buying[i].price1?'บน':''}}{{FromGroupCopyLottery.value.buying[i].price2?',ล่าง':''}})
+                </ng-container>
+                <ng-container *ngIf="FromGroupCopyLottery.value.buying[i].number.length != 2">
+                  ({{FromGroupCopyLottery.value.buying[i].price1?'โต๊ด':''}}{{FromGroupCopyLottery.value.buying[i].price2?',เต็ง':''}})
+                </ng-container>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ยกเลิก</button>
+        <button type="button" class="btn btn-sm btn-primary" (click)="OnSubmit()">บันทึก</button>
+      </div>
+    </div>
+  </div>
 </div>

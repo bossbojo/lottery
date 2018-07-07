@@ -1,3 +1,4 @@
+import { HttpService } from './../../services/http.service';
 import { UrlConfig } from './../../configs/url.config';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,12 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookComponent implements OnInit {
   Url = UrlConfig
-  constructor() { }
+  Member:any;
+  constructor(private http:HttpService) { }
 
   ngOnInit() {
+    this.OnGetData();
+  }
+  OnGetData(){
+    this.http.requestGet('get/all/member').subscribe((res:any)=>{
+      this.Member = res.data;
+      console.log(this.Member);
+       
+    });
   }
   OnSearch() {
-    var person = prompt("ใส่ชื่อที่ต้องการค้นหา:", "Mark");
+    var person = prompt("ใส่ชื่อที่ต้องการค้นหา:", "");
     if (person == null || person == "") {
       console.log(person);
     } else {
@@ -21,11 +31,13 @@ export class BookComponent implements OnInit {
     }
   }
   OnAddName() {
-    var person = prompt("ใส่ชื่อที่คุณต้องการเพิ่ม:", "Harry");
-    if (person == null || person == "") {
-      console.log(person);
+    var person = prompt("ใส่ชื่อที่คุณต้องการเพิ่ม:", "");
+    if (person != null || person.trim() != "") {
+      this.http.requestPost('create/member',person).subscribe((res:any)=>{
+        this.OnGetData();
+      });
     } else {
-      console.log(person);
+      alert("ชื่อว่างเปล่า");
     }
   }
   OnPay() {

@@ -21,10 +21,10 @@
         </tr>
       </thead>
       <tbody class="text-center">
-        <tr>
-          <th scope="row">1</th>
-          <td class="text-left">นามสมุติ</td>
-          <td>20,000</td>
+        <tr *ngFor="let Members of Member">
+          <th scope="row">{{Members.Id}}</th>
+          <td class="text-left">{{Members.Name}}</td>
+          <td>{{Members.Paid - Members.Receivable}}</td>
           <td>
             <button class="btn btn-light" (click)="OnPay()"><i class="fas fa-eye"></i> ดู</button>
             <button class="btn btn-warning" (click)="OnPay()"><i class="fas fa-coins"></i> จ่าย</button>
