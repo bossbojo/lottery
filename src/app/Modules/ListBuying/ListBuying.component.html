@@ -1,29 +1,56 @@
 <div class="bg-gray">
   <span class="alert-date">
     <a class="btn-map" [routerLink]="['/',Url.Home]">
-      <i class="fas fa-bars"></i> เมนูหลัก</a> / รายการซื้อประจำงวดวันที่ {{today | date:'dd/MM/yyyy'}}
+      <i class="fas fa-bars"></i> เมนูหลัก</a> / รายการซื้อ
   </span>
 </div>
 <div class="container">
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group">
-        <label for="sel1">
-          <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
-        <select class="form-control" id="sel1">
-          <option>นามสมมุติ</option>
-        </select>
+  <form [formGroup]="FromGroupFilter">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="sel1">
+            <i style="color: #fcbb43;" class="fas fa-calendar-alt"></i> ประจำงวดวันที่ :</label>
+          <input type="date" class="form-control" formControlName="lottery_date" id="sel1" (change)="GetListHistoryLottery()">
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="sel1">
+            <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
+          <select class="form-control" id="sel1" formControlName="member_id" (change)="GetListHistoryLottery()">
+            <option value="0">ทั้งหมด</option>
+            <option value="{{DataMembers.Id}}" *ngFor="let DataMembers of DataMember">{{DataMembers.Name}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="sel1">
+            <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
+          <select class="form-control" id="sel1" formControlName="country_id" (change)="GetListHistoryLottery()">
+            <option value="0">ทั้งหมด</option>
+            <option *ngFor="let DataCountrys of DataCountry2" value="{{DataCountrys.Id}}">{{DataCountrys.country_name}}</option>
+          </select>
+        </div>
       </div>
     </div>
-    <div class="col-6">
-      <div class="form-group">
-        <label for="sel1">
-          <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
-        <select class="form-control" id="sel1">
-          <option>หวยไทย</option>
-          <option>หวยลาว</option>
-          <option>หวยฮานอย</option>
-        </select>
+  </form>
+  <div class="row">
+    <div class="col-12">
+      <div class="header-lottery">
+        <span class="report-lottery">
+          <i class="fas fa-file-alt"></i>
+        </span>
+        <h6 *ngIf="FromGroupFilter.value.country_id == 0 || FromGroupFilter.value.country_id == 1">
+          <img src="assets/img/Flag_of_Thailand.svg" width="25px" alt=""> รวมหวยไทย = 6000฿
+        </h6>
+        <h6 *ngIf="FromGroupFilter.value.country_id == 0 || FromGroupFilter.value.country_id == 2">
+          <img src="assets/img/Flag_of_Laos.svg" width="25px" alt=""> รวมหวยลาว = 6000฿
+        </h6>
+        <h6 *ngIf="FromGroupFilter.value.country_id == 0 || FromGroupFilter.value.country_id == 3">
+          <img src="assets/img/Flag_of_Vietnam.png" width="25px" alt=""> รวมหวยฮานอย = 6000฿
+        </h6>
       </div>
     </div>
   </div>
@@ -31,19 +58,44 @@
     <table class="table table-sm">
       <thead class="text-center">
         <tr>
+          <th scope="col">ตรวจ</th>
           <th scope="col">เลข=(ราคาxราคา)</th>
           <th scope="col">หวย</th>
           <th scope="col">เล่นแบบ</th>
           <th scope="col">ตัวเลือก</th>
         </tr>
       </thead>
-      <tbody class="text-center">
-        <tr>
-          <td class="text-left">65=(20x20)</td>
-          <td class="text-left">ไทย</td>
-          <td>บน,ล่าง</td>
+      <tbody class="text-center" *ngIf="DataCountry">
+        <tr *ngFor="let HistoryLotterys of HistoryLottery">
+          <th scope="col">
+            <ng-container *ngIf="HistoryLotterys.check == 'wat'">
+              <i class="fas fa-spinner fa-spin" style="color: burlywood;"></i>
+            </ng-container>
+            <ng-container *ngIf="HistoryLotterys.check == 'icr'">
+              <i class="fas fa-times" style="color: red;"></i>
+            </ng-container>
+            <ng-container *ngIf="HistoryLotterys.check != 'icr' && HistoryLotterys.check != 'wat'">
+              <i class="fas fa-check" style="color: goldenrod;"></i>
+            </ng-container>
+          </th>
+          <td class="text-left">{{HistoryLotterys.number}} = ({{HistoryLotterys.price_1}}x{{HistoryLotterys.price_2}})</td>
+          <td class="text-left">
+            <img *ngIf="HistoryLotterys.Country_id == 1" src="assets/img/Flag_of_Thailand.svg" width="15px" alt="">
+            <img *ngIf="HistoryLotterys.Country_id == 2" src="assets/img/Flag_of_Laos.svg" width="15px" alt="">
+            <img *ngIf="HistoryLotterys.Country_id == 3" src="assets/img/Flag_of_Vietnam.png" width="15px" alt="">
+          </td>
           <td>
-            <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#EditLotteryModal">
+            <ng-container *ngIf="HistoryLotterys.number.length == 2">
+              <ng-container *ngIf="HistoryLotterys.price_1">บน</ng-container>
+              <ng-container *ngIf="HistoryLotterys.price_1"> ล่าง</ng-container>
+            </ng-container>
+            <ng-container *ngIf="HistoryLotterys.number.length == 3">
+              <ng-container *ngIf="HistoryLotterys.price_1">โต้ด</ng-container>
+              <ng-container *ngIf="HistoryLotterys.price_1"> เต็ง</ng-container>
+            </ng-container>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#EditCheckLotteryModal">
               <i class="fas fa-edit"></i>
             </button>
             <button class="btn btn-sm btn-danger">
@@ -57,7 +109,7 @@
 </div>
 
 <!--Edit Lottery Modal -->
-<div class="modal fade" id="EditLotteryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="EditCheckLotteryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

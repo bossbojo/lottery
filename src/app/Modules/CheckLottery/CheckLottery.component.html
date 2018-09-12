@@ -1,96 +1,180 @@
 <div class="bg-gray">
   <span class="alert-date">
     <a class="btn-map" [routerLink]="['/',Url.Home]">
-      <i class="fas fa-bars"></i> เมนูหลัก</a> / ตรวจสอบรางวัลประจำงวดวันที่ {{today | date:'dd/MM/yyyy'}}
+      <i class="fas fa-bars"></i> เมนูหลัก</a> / ตรวจสอบรางวัล
   </span>
 </div>
 <div class="container">
-  <div class="row">
-    <div class="form-check-inline">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio">หวยไทย
-      </label>
-    </div>
-    <div class="form-check-inline">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio">หวยลาว
-      </label>
-    </div>
-    <div class="form-check-inline disabled">
-      <label class="form-check-label">
-        <input type="radio" class="form-check-input" name="optradio" disabled>หวยฮานอย
-      </label>
-    </div>
+  <div class="col-12">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" (click)="TabName = '1'" [ngClass]="{'active':TabName == '1'}">รายการตรวจ</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="TabName = '2'" [ngClass]="{'active':TabName == '2'}">สร้างการตรวจ</a>
+      </li>
+    </ul>
   </div>
-  <hr>
-  <div class="row">
-    <div class="col-6 text-center">
-      <span>
-        เลขท้าย 2 ตัวบน
-      </span>
-      <div class="form-group">
-        <input type="tel" class="form-control text-center" placeholder="XX">
+  <div *ngIf="TabName == '2'">
+    <form [formGroup]="CreateCheck" (submit)="OnSubmitCreateLottery()">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="sel1">
+              <i style="color: #fcbb43;" class="fas fa-calendar-alt"></i> ประจำงวดวันที่ :</label>
+            <input type="date" class="form-control" id="sel1" formControlName="lot_dt" (change)="GetListHistoryLottery()">
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-6 text-center">
-      <span>
-        เลขท้าย 2 ตัวล่าง
-      </span>
-      <div class="form-group">
-        <input type="tel" class="form-control text-center" placeholder="XX">
+      <div class="row">
+        <div class="col-12 text-center">
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" value="1" class="form-check-input" formControlName="Country_id">
+              <img src="assets/img/Flag_of_Thailand.svg" width="40px" alt="">
+            </label>
+          </div>
+          <div class="form-check-inline">
+            <label class="form-check-label">
+              <input type="radio" value="2" class="form-check-input" formControlName="Country_id">
+              <img src="assets/img/Flag_of_Laos.svg" width="40px" alt="">
+            </label>
+          </div>
+          <div class="form-check-inline disabled">
+            <label class="form-check-label">
+              <input type="radio" value="3" class="form-check-input" formControlName="Country_id">
+              <img src="assets/img/Flag_of_Vietnam.png" width="40px" alt="">
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-12 text-center">
-      <span>
-        เลขท้าย 3 ตัว
-      </span>
-      <div class="form-group">
-        <input type="tel" class="form-control text-center" placeholder="XXX">
+      <div class="row">
+        <div class="col-6 text-center">
+          <span>
+            เลขท้าย 2 ตัวบน
+          </span>
+          <div class="form-group">
+            <input type="tel" class="form-control text-center" placeholder="XX" maxlength="2" formControlName="number_upper">
+          </div>
+        </div>
+        <div class="col-6 text-center">
+          <span>
+            เลขท้าย 2 ตัวล่าง
+          </span>
+          <div class="form-group">
+            <input type="tel" class="form-control text-center" placeholder="XX" maxlength="2" formControlName="number_lower">
+          </div>
+        </div>
+        <div class="col-12 text-center">
+          <span>
+            เลขท้าย 3 ตัว
+          </span>
+          <div class="form-group">
+            <input type="tel" class="form-control text-center" placeholder="XXX" maxlength="3" formControlName="number_three">
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger" style="width: 100%;">ตรวจรางวัล</button>
+        </div>
       </div>
-    </div>
-    <div class="col-12">
-      <button class="btn btn-danger" style="width: 100%;">ตรวจรางวัล</button>
-    </div>
+    </form>
   </div>
-  <hr>
-  <div class="row">
+  <div class="row" *ngIf="TabName == '1'">
     <label>งวดนี้ที่ตรวจเเล้ว</label>
     <table class="table table-sm">
+      <thead class="text-center">
+        <tr>
+          <th scope="col">วว/ดด</th>
+          <th scope="col">บน</th>
+          <th scope="col">ล่าง</th>
+          <th scope="col">3 ตัว</th>
+          <th scope="col"></th>
+          <th scope="col">ตัวเลือก</th>
+        </tr>
+      </thead>
       <tbody class="text-center">
-        <tr>
-          <td class="text-left">หวยไทย</td>
-          <td>09</td>
-          <td>896</td>
-          <td class="corrent"><i class="fas fa-male"></i> 9</td>
+        <tr *ngFor="let LotteyChecks of LotteyCheck">
+          <td class="text-center">
+            <img *ngIf="LotteyChecks.Country_id == 1" src="assets/img/Flag_of_Thailand.svg" width="25px" alt="">
+            <img *ngIf="LotteyChecks.Country_id == 2" src="assets/img/Flag_of_Laos.svg" width="25px" alt="">
+            <img *ngIf="LotteyChecks.Country_id == 3" src="assets/img/Flag_of_Vietnam.png" width="25px" alt="">
+            <br> {{LotteyChecks.lot_dt | date : 'dd/MM' }}
+          </td>
+          <td>{{LotteyChecks.number_upper?LotteyChecks.number_upper:'XX'}}</td>
+          <td>{{LotteyChecks.number_lower?LotteyChecks.number_lower:'XX'}}</td>
+          <td>{{LotteyChecks.number_three?LotteyChecks.number_three:'XXX'}}</td>
+          <td class="corrent">
+            <i class="fas fa-male"></i> {{LotteyChecks.count_check}}</td>
           <td>
-            <a style="color: #80ff55;">
+            <a *ngIf="LotteyChecks.number_three" style="color: #80ff55;" data-toggle="modal" data-target="#EditCheckLotteryModal" (click)="OnEditCheckLottery(LotteyChecks)">
               <i class="fas fa-edit"></i>
             </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">หวยลาว</td>
-          <td>88</td>
-          <td>691</td>
-          <td class="corrent"><i class="fas fa-male"></i> 9</td>
-          <td>
-            <a style="color: #80ff55;">
-              <i class="fas fa-edit"></i>
-            </a>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">หวยฮานอย</td>
-          <td>87</td>
-          <td>456</td>
-          <td class="corrent"><i class="fas fa-male"></i> 9</td>
-          <td>
-            <a style="color: #80ff55;">
-              <i class="fas fa-edit"></i>
+            <a *ngIf="!LotteyChecks.number_three" style="color: #3d6be9;" (click)="OnCresteCheckLottery(LotteyChecks.lot_dt,LotteyChecks.Country_id)">
+              <i class="fas fa-plus-square"></i>
             </a>
           </td>
         </tr>
       </tbody>
     </table>
+  </div>
+</div>
+<!--Edit Lottery Modal -->
+<div class="modal fade" id="EditCheckLotteryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" *ngIf="EditCheck">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          <i class="fas fa-edit"></i> เเก้ไขการตรวจหวย</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="EditCheck" (submit)="OnSubmitEditCheckLottery()">
+        <div class="modal-body" *ngIf="LotteyChecksModel">
+          <div class="row">
+            <div class="col-12">
+              <img *ngIf="LotteyChecksModel.Country_id == 1" src="assets/img/Flag_of_Thailand.svg" width="50px" alt="">
+              <img *ngIf="LotteyChecksModel.Country_id == 2" src="assets/img/Flag_of_Laos.svg" width="50px" alt="">
+              <img *ngIf="LotteyChecksModel.Country_id == 3" src="assets/img/Flag_of_Vietnam.png" width="50px" alt="">
+              <span *ngIf="LotteyChecksModel.Country_id == 1">หวยไทย</span>
+              <span *ngIf="LotteyChecksModel.Country_id == 2">หวยลาว</span>
+              <span *ngIf="LotteyChecksModel.Country_id == 3">หวยฮานอย</span>
+              ประจำงวดวันที่ {{LotteyChecksModel.lot_dt | date : 'dd/MM' }}
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-6 text-center">
+              <span>
+                เลขท้าย 2 ตัวบน
+              </span>
+              <div class="form-group">
+                <input type="tel" class="form-control text-center" placeholder="XX" maxlength="2" formControlName="number_upper">
+              </div>
+            </div>
+            <div class="col-6 text-center">
+              <span>
+                เลขท้าย 2 ตัวล่าง
+              </span>
+              <div class="form-group">
+                <input type="tel" class="form-control text-center" placeholder="XX" maxlength="2" formControlName="number_lower">
+              </div>
+            </div>
+            <div class="col-12 text-center">
+              <span>
+                เลขท้าย 3 ตัว
+              </span>
+              <div class="form-group">
+                <input type="tel" class="form-control text-center" placeholder="XXX" maxlength="3" formControlName="number_three">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">ยกเลิก</button>
+          <button type="submit" class="btn btn-sm btn-primary">บันทึก</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

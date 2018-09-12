@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "build": "ng build --aot=false -prod",
-    "deploy:real": "npm run build&&deploy.bat"
+    "build:test": "ng build --output-path Frontend/ --deploy-url \"Frontend/\" ",
+    "deploy:real": "npm run build&&deploy.bat" 
   },
   "private": true,
   "dependencies": {

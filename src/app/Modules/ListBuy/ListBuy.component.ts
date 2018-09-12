@@ -2,6 +2,8 @@ import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
 import { UrlConfig } from '../../configs/url.config';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-ListBuy',
@@ -23,8 +25,11 @@ export class ListBuyComponent implements OnInit {
   DataCountry: any;
   DataMember: any;
   DataPlay: any;
-  constructor(private build: FormBuilder, private http: HttpService) {
+  lot_dt:any;
+  TabName = '1'
+  constructor(private build: FormBuilder, private http: HttpService,private route:Router,private datep:DatePipe) {
     this.FormBuying = this.build.group({
+      lot_dt: [datep.transform(this.today,'yyyy-MM-dd'), [Validators.required]],
       who: ['', [Validators.required]],
       country : ['', [Validators.required]],
       type: [''],
@@ -32,6 +37,7 @@ export class ListBuyComponent implements OnInit {
       price1: ['', [Validators.required]],
       price2: ['', [Validators.required]],
     });
+    this.lot_dt = this.datep.transform(this.today,'yyyy-MM-dd');
   }
   ngOnInit() {
     this.http.requestGet('get/all/country').subscribe((res: any) => {
@@ -50,6 +56,7 @@ export class ListBuyComponent implements OnInit {
        this.http.requestPost('create/buy/lottery/one',this.FormBuying.value).subscribe((res:any)=>{
         alert("เพิ่มการซื้อเเล้ว");
         this.FormBuying.reset();
+        this.route.navigate(['/',UrlConfig.ListBuying]);
        });
     }else{
       alert("กรุณากรอบข้อมูลให้ครบ");
@@ -101,6 +108,7 @@ export class ListBuyComponent implements OnInit {
       );
     });
     this.FromGroupCopyLottery = this.build.group({
+      lot_dt: [this.lot_dt, [Validators.required]],
       who: [this.member, [Validators.required]],
       country: [this.conutry, [Validators.required]],
       buying: this.build.array(FormGroup)
@@ -110,13 +118,13 @@ export class ListBuyComponent implements OnInit {
     if (this.FromGroupCopyLottery) {
       if (this.FromGroupCopyLottery.valid) {
         this.http.requestPost('create/buy/lottery/many',this.FromGroupCopyLottery.value).subscribe((res:any)=>{
-          console.log(res.data);
-        })
-        return;
+          $('#AddCopyLotteryModal').modal('hide');
+          this.route.navigate(['/',UrlConfig.ListBuying]);
+        });
+      }else{
+        alert("กรุณา เลือกผู้ซื้อ เลือกหวยของ เเละใส่การซื้อ ให้ครบก่อนบันทึก");
       }
-    } 
-      alert("กรุณา เลือกผู้ซื้อ เลือกหวยของ เเละใส่การซื้อ ให้ครบก่อนบันทึก");
-    
+    }
   }
 }
 class m_Copy {

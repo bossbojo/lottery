@@ -18,43 +18,46 @@
     </div>
   </div>
   <!-- เปอร์เซ็น -->
-  <div class="persent-sale" *ngIf="TabName == 'persent'">
-    <div class="form-group">
-      <div class="row">
-        <div class="col-8">
-          <Label for="Share">เปอร์เซ็นเเม่ :</Label>
+
+      <div class="persent-sale" *ngIf="TabName == 'persent'">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-8">
+                <Label for="Share">เปอร์เซ็นเเม่ :</Label>
+              </div>
+              <div class="col-4">
+                <input type="tel" class="form-control text-center"  placeholder="XX%" id="Share">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-8">
+                <Label for="Share">เปอร์เซ็นผู้ขาย :</Label>
+              </div>
+              <div class="col-4">
+                <input type="tel" class="form-control text-center" placeholder="XX%" id="Share">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <div class="col-8">
+                <Label for="Share">เปอร์เซ็นผู้ซื้อ :</Label>
+              </div>
+              <div class="col-4">
+                <input type="tel" class="form-control text-center" placeholder="XX%" id="Share">
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="text-right">
+            <button class="btn btn-success">บันทึก</button>
+          </div>
         </div>
-        <div class="col-4">
-          <input type="tel" class="form-control text-center" placeholder="XX%" id="Share">
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="row">
-        <div class="col-8">
-          <Label for="Share">เปอร์เซ็นผู้ขาย :</Label>
-        </div>
-        <div class="col-4">
-          <input type="tel" class="form-control text-center" placeholder="XX%" id="Share">
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <div class="row">
-        <div class="col-8">
-          <Label for="Share">เปอร์เซ็นผู้ซื้อ :</Label>
-        </div>
-        <div class="col-4">
-          <input type="tel" class="form-control text-center" placeholder="XX%" id="Share">
-        </div>
-      </div>
-    </div>
-    <hr>
-    <div class="text-right">
-      <button class="btn btn-success">บันทึก</button>
-    </div>
-  </div>
+
   <!-- ราคา -->
+  <form [formGroup]="FromPrice">
   <div class="persent-sale" *ngIf="TabName == 'price'">
       <div class="form-group">
         <div class="row">
@@ -62,7 +65,7 @@
             <Label for="Share">เลขท้าย 2 ตัว : บาทละ</Label>
           </div>
           <div class="col-4">
-            <input type="tel" class="form-control text-center" placeholder="XX฿" id="Share">
+            <input type="tel" class="form-control text-center" formControlName="two_number" placeholder="XX฿" id="Share">
           </div>
         </div>
       </div>
@@ -72,7 +75,7 @@
             <Label for="Share">เลขท้าย 3 ตัว โต๊ค: บาทละ</Label>
           </div>
           <div class="col-4">
-            <input type="tel" class="form-control text-center" placeholder="XX฿" id="Share">
+            <input type="tel" class="form-control text-center" formControlName="unstraight" placeholder="XX฿" id="Share">
           </div>
         </div>
       </div>
@@ -82,7 +85,7 @@
             <Label for="Share">เลขท้าย 3 ตัว เต็ง : บาทละ</Label>
           </div>
           <div class="col-4">
-            <input type="tel" class="form-control text-center" placeholder="XX฿" id="Share">
+            <input type="tel" class="form-control text-center" formControlName="straight" placeholder="XX฿" id="Share">
           </div>
         </div>
       </div>
@@ -91,4 +94,5 @@
         <button class="btn btn-success">บันทึก</button>
       </div>
     </div>
+  </form>
 </div>

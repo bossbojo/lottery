@@ -1,6 +1,4 @@
-.row{
-    padding: 5px;
-}
+
 .check-box{
     padding-top: 8px;
 }
@@ -11,12 +9,10 @@ table{
     padding: 0px 4px 0px 4px;
     font-size: 12px;
 }
-.x{
-    text-align: center;
-    padding-top: 5px !important;
-}
-.col-6{
-    padding: 1px;
+.X{
+    position: absolute;
+    top: 5px;
+    right: -5px;
 }
 .show-number{
     padding: 10px;
