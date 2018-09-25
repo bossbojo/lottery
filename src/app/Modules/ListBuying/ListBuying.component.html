@@ -24,7 +24,7 @@
           </select>
         </div>
       </div>
-      <div class="col-6">
+      <div class="col-6" >
         <div class="form-group">
           <label for="sel1">
             <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
@@ -36,21 +36,26 @@
       </div>
     </div>
   </form>
-  <div class="row">
+  <div class="row" *ngIf="SumReport">
     <div class="col-12">
       <div class="header-lottery">
-        <span class="report-lottery">
+        <!-- <span class="report-lottery">
           <i class="fas fa-file-alt"></i>
-        </span>
-        <h6 *ngIf="FromGroupFilter.value.country_id == 0 || FromGroupFilter.value.country_id == 1">
-          <img src="assets/img/Flag_of_Thailand.svg" width="25px" alt=""> รวมหวยไทย = 6000฿
-        </h6>
-        <h6 *ngIf="FromGroupFilter.value.country_id == 0 || FromGroupFilter.value.country_id == 2">
-          <img src="assets/img/Flag_of_Laos.svg" width="25px" alt=""> รวมหวยลาว = 6000฿
-        </h6>
-        <h6 *ngIf="FromGroupFilter.value.country_id == 0 || FromGroupFilter.value.country_id == 3">
-          <img src="assets/img/Flag_of_Vietnam.png" width="25px" alt=""> รวมหวยฮานอย = 6000฿
-        </h6>
+        </span> -->
+        <ng-container *ngFor="let SumReports of SumReport">
+          <h6 *ngIf="SumReports.Country_id == 1">
+            <img src="assets/img/Flag_of_Thailand.svg" width="25px" alt=""> รวมหวยไทย = {{SumReports.price1+SumReports.price2}}฿
+            <span style="float: right;">{{SumReports.count_buying}} ตัว</span>
+          </h6>
+          <h6 *ngIf="SumReports.Country_id == 2">
+            <img src="assets/img/Flag_of_Laos.svg" width="25px" alt=""> รวมหวยลาว = {{SumReports.price1+SumReports.price2}}฿
+            <span style="float: right;">{{SumReports.count_buying}} ตัว</span>
+          </h6>
+          <h6 *ngIf="SumReports.Country_id == 3">
+            <img src="assets/img/Flag_of_Vietnam.png" width="25px" alt=""> รวมหวยฮานอย = {{SumReports.price1+SumReports.price2}}฿
+            <span style="float: right;">{{SumReports.count_buying}} ตัว</span>
+          </h6>
+        </ng-container>
       </div>
     </div>
   </div>
@@ -90,15 +95,15 @@
               <ng-container *ngIf="HistoryLotterys.price_1"> ล่าง</ng-container>
             </ng-container>
             <ng-container *ngIf="HistoryLotterys.number.length == 3">
-              <ng-container *ngIf="HistoryLotterys.price_1">โต้ด</ng-container>
-              <ng-container *ngIf="HistoryLotterys.price_1"> เต็ง</ng-container>
+              <ng-container *ngIf="HistoryLotterys.price_1">เต็ง</ng-container>
+              <ng-container *ngIf="HistoryLotterys.price_1"> โต้ด</ng-container>
             </ng-container>
           </td>
           <td>
             <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#EditCheckLotteryModal">
               <i class="fas fa-edit"></i>
             </button>
-            <button class="btn btn-sm btn-danger">
+            <button class="btn btn-sm btn-danger" (click)="OnDeleteHistoryLottery(HistoryLotterys)">
               <i class="fas fa-trash-alt"></i>
             </button>
           </td>

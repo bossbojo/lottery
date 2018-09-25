@@ -1,3 +1,4 @@
+import { GlobalValueService } from './../../services/global-value.service';
 import { HttpService } from './../../services/http.service';
 import { Component, OnInit } from '@angular/core';
 import { UrlConfig } from '../../configs/url.config';
@@ -25,19 +26,19 @@ export class ListBuyComponent implements OnInit {
   DataCountry: any;
   DataMember: any;
   DataPlay: any;
-  lot_dt:any;
+  lot_dt: any;
   TabName = '1'
-  constructor(private build: FormBuilder, private http: HttpService,private route:Router,private datep:DatePipe) {
+  constructor(private build: FormBuilder, private http: HttpService, private route: Router, private datep: DatePipe, private GlobalValue: GlobalValueService) {
     this.FormBuying = this.build.group({
-      lot_dt: [datep.transform(this.today,'yyyy-MM-dd'), [Validators.required]],
+      lot_dt: [datep.transform(this.today, 'yyyy-MM-dd'), [Validators.required]],
       who: ['', [Validators.required]],
-      country : ['', [Validators.required]],
+      country: ['', [Validators.required]],
       type: [''],
       number: ['', [Validators.required]],
       price1: ['', [Validators.required]],
       price2: ['', [Validators.required]],
     });
-    this.lot_dt = this.datep.transform(this.today,'yyyy-MM-dd');
+    this.lot_dt = this.datep.transform(this.today, 'yyyy-MM-dd');
   }
   ngOnInit() {
     this.http.requestGet('get/all/country').subscribe((res: any) => {
@@ -50,20 +51,31 @@ export class ListBuyComponent implements OnInit {
       this.DataMember = res.data;
     });
   }
-  OnBuyingSubmit(){
-    if(this.FormBuying.valid){
-       this.FormBuying.controls['type'].setValue(this.FormBuying.controls['number'].value.length == 2? 'two':'three');
-       this.http.requestPost('create/buy/lottery/one',this.FormBuying.value).subscribe((res:any)=>{
+  OnBuyingSubmit() {
+    if (this.FormBuying.valid) {
+      this.GlobalValue.OnShowLoading()
+      this.FormBuying.controls['type'].setValue(this.FormBuying.controls['number'].value.length == 2 ? 'two' : 'three');
+      this.http.requestPost('create/buy/lottery/one', this.FormBuying.value).subscribe((res: any) => {
         alert("เพิ่มการซื้อเเล้ว");
         this.FormBuying.reset();
-        this.route.navigate(['/',UrlConfig.ListBuying]);
-       });
-    }else{
+        this.GlobalValue.OnHiddenLoading()
+        this.route.navigate(['/', UrlConfig.ListBuying]);
+      });
+    } else {
       alert("กรุณากรอบข้อมูลให้ครบ");
     }
   }
   OnCopy() {
     this.DataFrom = [];
+    for (let i = 0; i < this.copy.length; i++) {
+      this.copy = this.copy.replace("  ", ",");
+    }
+    for (let i = 0; i < this.copy.length; i++) {
+      this.copy = this.copy.replace(" ", ",");
+    }
+    for (let i = 0; i < this.copy.length; i++) {
+      this.copy = this.copy.replace("\n", "");
+    }
     const reso1 = this.copy.split('\n');
     reso1.forEach(e => {
       const number = e.split('=');
@@ -74,7 +86,7 @@ export class ListBuyComponent implements OnInit {
           if (price1 || price2)
             this.ConvertData(number[0], price1, price2);
         } else {
-          this.ConvertData(number[0],number[1], 0);
+          this.ConvertData(number[0], number[1], 0);
         }
       }
     });
@@ -117,11 +129,13 @@ export class ListBuyComponent implements OnInit {
   OnSubmit() {
     if (this.FromGroupCopyLottery) {
       if (this.FromGroupCopyLottery.valid) {
-        this.http.requestPost('create/buy/lottery/many',this.FromGroupCopyLottery.value).subscribe((res:any)=>{
-          $('#AddCopyLotteryModal').modal('hide');
-          this.route.navigate(['/',UrlConfig.ListBuying]);
+        this.GlobalValue.OnShowLoading()
+        this.http.requestPost('create/buy/lottery/many', this.FromGroupCopyLottery.value).subscribe((res: any) => {
+          //$('#AddCopyLotteryModal').modal('hide');
+          this.GlobalValue.OnHiddenLoading()
+          this.route.navigate(['/', UrlConfig.ListBuying]);
         });
-      }else{
+      } else {
         alert("กรุณา เลือกผู้ซื้อ เลือกหวยของ เเละใส่การซื้อ ให้ครบก่อนบันทึก");
       }
     }

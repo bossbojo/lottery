@@ -17,6 +17,7 @@ export class ListBuyingComponent implements OnInit {
   DataCountry2:any;
   DataPlay:any = [];
   DataMember:any;
+  SumReport:any;
   FromGroupFilter:FormGroup;
   constructor(private build: FormBuilder,private http:HttpService,private datep:DatePipe) {
     this.FromGroupFilter = this.build.group({
@@ -42,13 +43,27 @@ export class ListBuyingComponent implements OnInit {
     this.http.requestGet('get/all/member').subscribe((res: any) => {
       this.DataMember = res.data;
     });
+    this.GetSumReport();
+  }
+  GetSumReport(){
+    this.http.requestGet(`get/report_sum/${this.FromGroupFilter.value.lottery_date}`).subscribe((res:any)=>{
+      if(res.data.length > 0)
+      this.SumReport = res.data;      
+    });
   }
   GetListHistoryLottery(){
-    console.log(this.FromGroupFilter.value);
-    
     this.http.requestGet(`get/history/lottery/${this.FromGroupFilter.value.member_id}/${this.FromGroupFilter.value.country_id}/${this.FromGroupFilter.value.lottery_date}`).subscribe((res:any)=>{
-      console.log(res.data);
       this.HistoryLottery = res.data;
     });
+  }
+  OnDeleteHistoryLottery(HistoryLotterys){
+    var r = confirm(`คุณต้องการที่ลบการซื้อนี้ ${HistoryLotterys.number} = (${HistoryLotterys.price_1}x${HistoryLotterys.price_2})`);
+    if (r == true) {
+      this.http.requestDelete(`delete/historylottery?Id=${HistoryLotterys.Id}`).subscribe((res:any)=>{
+        if(res.data){
+          this.ngOnInit();
+        }
+      });
+    } 
   }
 }
