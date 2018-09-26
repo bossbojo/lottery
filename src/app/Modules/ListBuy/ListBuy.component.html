@@ -9,10 +9,10 @@
     <div class="col-12">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" (click)="TabName = '1'" [ngClass]="{'active':TabName == '1'}">ซื้อหวย</a>
+          <a class="nav-link" (click)="TabName = '2'" [ngClass]="{'active':TabName == '2'}">ซื้อหวยเเบบรวดเร็ว</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" (click)="TabName = '2'" [ngClass]="{'active':TabName == '2'}">ซื้อหวยก็อบปี้/พิมพ์</a>
+          <a class="nav-link" (click)="TabName = '1'" [ngClass]="{'active':TabName == '1'}">ซื้อหวย</a>
         </li>
       </ul>
     </div>
@@ -112,7 +112,9 @@
         </select>
       </div>
       <label class="petten">รูปเเบบที่สามารถรับได้ "เลข=ราคาXราคา"</label>
+      <span style="float: right;cursor: pointer;" (click)="OnRefreshFormat()"><i class="fas fa-retweet"></i> Refresh</span>
       <textarea class="form-control" style="width:100%;" rows="6" [(ngModel)]="copy" #ctrl="ngModel" (keyup)="OnCopy()"></textarea>
+      <input type="checkbox" [(ngModel)]="reword" #ctrl="ngModel" id="reword" (change)="OnCopy()"> <label for="reword">ไปกลับ</label>
       <hr>
       <ng-container *ngIf="FromGroupCopyLottery">
         <form [formGroup]="FromGroupCopyLottery">

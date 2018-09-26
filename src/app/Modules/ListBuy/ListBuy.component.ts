@@ -22,12 +22,12 @@ export class ListBuyComponent implements OnInit {
   member = '';
   conutry: string = '';
   DataFrom: m_Copy[] = [];
-
+  reword = false;
   DataCountry: any;
   DataMember: any;
   DataPlay: any;
   lot_dt: any;
-  TabName = '1'
+  TabName = '2'
   constructor(private build: FormBuilder, private http: HttpService, private route: Router, private datep: DatePipe, private GlobalValue: GlobalValueService) {
     this.FormBuying = this.build.group({
       lot_dt: [datep.transform(this.today, 'yyyy-MM-dd'), [Validators.required]],
@@ -65,17 +65,17 @@ export class ListBuyComponent implements OnInit {
       alert("กรุณากรอบข้อมูลให้ครบ");
     }
   }
+  OnRefreshFormat(){
+    this.copy = this.copy.replace(/[^a-zA-Z0-9-=,\n]/g,' ');
+    this.copy = this.copy.replace('\n','');
+    for (let i = 0; i < this.copy.length; i++) {  
+      this.copy = this.copy.replace('  ',',');
+      this.copy = this.copy.replace(',,','');
+    }
+    this.OnCopy();
+  }
   OnCopy() {
     this.DataFrom = [];
-    for (let i = 0; i < this.copy.length; i++) {
-      this.copy = this.copy.replace("  ", ",");
-    }
-    for (let i = 0; i < this.copy.length; i++) {
-      this.copy = this.copy.replace(" ", ",");
-    }
-    for (let i = 0; i < this.copy.length; i++) {
-      this.copy = this.copy.replace("\n", "");
-    }
     const reso1 = this.copy.split('\n');
     reso1.forEach(e => {
       const number = e.split('=');
@@ -104,6 +104,9 @@ export class ListBuyComponent implements OnInit {
         type = 'three';
       }
       this.DataFrom.push(new m_Copy(element, parseInt(price1), parseInt(price2), type));
+      if(this.reword && element.length == 2){
+        this.DataFrom.push(new m_Copy(element.split('')[1]+""+element.split('')[0], parseInt(price1), parseInt(price2), type));
+      }
     });
 
   }

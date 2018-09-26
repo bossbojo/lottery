@@ -10,7 +10,9 @@
       <div class="col-12">
         <div class="form-group">
           <label for="sel1">
-            <i style="color: #fcbb43;" class="fas fa-calendar-alt"></i> ประจำงวดวันที่ :</label>
+            <i style="color: #fcbb43;" class="fas fa-calendar-alt"></i> ประจำงวดวันที่ :
+          </label>
+          <a style="float: right;" [routerLink]="['/',Url.ListBuy]"> <i class="fas fa-dollar-sign"></i> ซื้อหวย</a>
           <input type="date" class="form-control" formControlName="lottery_date" id="sel1" (change)="GetListHistoryLottery()">
         </div>
       </div>
