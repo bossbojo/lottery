@@ -17,6 +17,7 @@ export class CheckLotteryComponent implements OnInit {
   EditCheck: FormGroup;
   TabName = '1';
   LotteyChecksModel: any;
+  ViewLotteryCorrect:any;
   constructor(private http: HttpService, private build: FormBuilder, private datep: DatePipe) {
     this.CreateCheck = this.build.group({
       "lot_dt": datep.transform(this.today, 'yyyy-MM-dd'),
@@ -70,4 +71,12 @@ export class CheckLotteryComponent implements OnInit {
       alert('กรุณาใส่ข้อมูลให้ครบ');
     }
   }
+  OnViewCorrectCheckLottery(data){
+    this.http.requestGet(`get/check_report_lottery_lot_dt/only_correct/${data.lot_dt.replace('T00:00:00','')}/${data.Country_id}`).subscribe((res:any)=>{
+      this.ViewLotteryCorrect = res.data;
+      console.log(res.data);
+      
+    });
+  }
 }
+

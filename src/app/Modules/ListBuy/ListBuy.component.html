@@ -25,7 +25,7 @@
             <div class="form-group">
               <label for="sel1">
                 <i style="color: #fcbb43;" class="fas fa-calendar-alt"></i> ประจำงวดวันที่ :</label>
-              <input type="date" class="form-control" formControlName="lot_dt" id="sel1">
+              <input type="date" class="form-control" (change)="OnChangeDate()" formControlName="lot_dt" id="sel1">
             </div>
           </div>
           <div class="col-6">
@@ -75,7 +75,7 @@
                 ({{FormBuying.value.price1?'บน':''}}{{FormBuying.value.price2?',ล่าง':''}})
               </ng-container>
               <ng-container *ngIf="FormBuying.value.number.length != 2 && (FormBuying.value.price1||FormBuying.value.price2)">
-                ({{FormBuying.value.price1?'โต๊ด':''}}{{FormBuying.value.price2?',เต็ง':''}})
+                ({{FormBuying.value.price1?'เต็ง':''}}{{FormBuying.value.price2?',โต๊ด':''}})
               </ng-container>
             </div>
           </div>
@@ -88,33 +88,44 @@
   </div>
   <div *ngIf="TabName == '2'">
     <div class="modal-body">
-      <div class="form-group">
-        <label for="sel1">
-          <i style="color: #fcbb43;" class="fas fa-calendar-alt"></i> ประจำงวดวันที่ :</label>
-        <input type="date" class="form-control"  [(ngModel)]="lot_dt" #ctrl="ngModel" id="sel1">
+      <div class="row">
+        <div class="col-12">
+          <div class="form-group">
+            <label for="sel1">
+              <i style="color: #fcbb43;" class="fas fa-calendar-alt"></i> ประจำงวดวันที่ :</label>
+            <input type="date" class="form-control"  [(ngModel)]="lot_dt" #ctrl="ngModel" id="sel1">
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="sel1">
-          <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
-        <select class="form-control" [(ngModel)]="member" id="sel1" (change)="OnCopy()">
-          <option value="">กรุณาเลือก</option>
-          <option value="{{DataMembers.Id}}" *ngFor="let DataMembers of DataMember">{{DataMembers.Name}}</option>
-        </select>
+      <div class="row">
+        <div class="col-6">
+          <div class="form-group">
+            <label for="sel1">
+              <i style="color: #6a6aff;" class="fas fa-male"></i> เลือกผู้ซื้อ :</label>
+            <select class="form-control" [(ngModel)]="member" id="sel1" (change)="OnCopy()">
+              <option value="">กรุณาเลือก</option>
+              <option value="{{DataMembers.Id}}" *ngFor="let DataMembers of DataMember">{{DataMembers.Name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="form-group">
+            <label for="sel1">
+              <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
+            <select class="form-control" id="sel1" [(ngModel)]="conutry" #ctrl="ngModel" (change)="OnCopy()">
+              <option value="">กรุณาเลือก</option>
+              <option *ngFor="let DataCountrys of DataCountry" value="{{DataCountrys.Id}}">{{DataCountrys.country_name}}</option>
+            </select>
+          </div>
+        </div>
       </div>
       
 
-      <div class="form-group">
-        <label for="sel1">
-          <i style="color: #91917d;" class="fas fa-code-branch"></i> หวยของ :</label>
-        <select class="form-control" id="sel1" [(ngModel)]="conutry" #ctrl="ngModel" (change)="OnCopy()">
-          <option value="">กรุณาเลือก</option>
-          <option *ngFor="let DataCountrys of DataCountry" value="{{DataCountrys.Id}}">{{DataCountrys.country_name}}</option>
-        </select>
-      </div>
       <label class="petten">รูปเเบบที่สามารถรับได้ "เลข=ราคาXราคา"</label>
       <span style="float: right;cursor: pointer;" (click)="OnRefreshFormat()"><i class="fas fa-retweet"></i> Refresh</span>
       <textarea class="form-control" style="width:100%;" rows="6" [(ngModel)]="copy" #ctrl="ngModel" (keyup)="OnCopy()"></textarea>
-      <input type="checkbox" [(ngModel)]="reword" #ctrl="ngModel" id="reword" (change)="OnCopy()"> <label for="reword">ไปกลับ</label>
+      <input type="checkbox" [(ngModel)]="reword" #ctrl="ngModel" id="reword" (change)="OnReword()"> <label for="reword">ไปกลับ</label>
+      <input type="checkbox" [(ngModel)]="rewordonly" #ctrl="ngModel" id="rewordonly" (change)="OnRewordonly()"> <label for="rewordonly">กลับอย่างเดียว</label>
       <hr>
       <ng-container *ngIf="FromGroupCopyLottery">
         <form [formGroup]="FromGroupCopyLottery">
@@ -135,7 +146,7 @@
                 ({{FromGroupCopyLottery.value.buying[i].price1?'บน':''}}{{FromGroupCopyLottery.value.buying[i].price2?',ล่าง':''}})
               </ng-container>
               <ng-container *ngIf="FromGroupCopyLottery.value.buying[i].number.length != 2">
-                ({{FromGroupCopyLottery.value.buying[i].price1?'โต๊ด':''}}{{FromGroupCopyLottery.value.buying[i].price2?',เต็ง':''}})
+                ({{FromGroupCopyLottery.value.buying[i].price1?'เต็ง':''}}{{FromGroupCopyLottery.value.buying[i].price2?',โต๊ด':''}})
               </ng-container>
             </div>
           </div>

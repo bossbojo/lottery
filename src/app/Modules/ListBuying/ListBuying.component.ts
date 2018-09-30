@@ -46,15 +46,27 @@ export class ListBuyingComponent implements OnInit {
     this.GetSumReport();
   }
   GetSumReport(){
-    this.http.requestGet(`get/report_sum/${this.FromGroupFilter.value.lottery_date}`).subscribe((res:any)=>{
-      if(res.data.length > 0)
-      this.SumReport = res.data;      
+    if(this.FromGroupFilter.value.member_id == 0){
+      this.http.requestGet(`get/report_sum/${this.FromGroupFilter.value.lottery_date}`).subscribe((res:any)=>{
+        this.SumReport = res.data;      
+      });
+    }else{
+      this.http.requestGet(`get/report_sum_member/${this.FromGroupFilter.value.lottery_date}/${this.FromGroupFilter.value.member_id}`).subscribe((res:any)=>{
+        this.SumReport = res.data;      
+      });
+    }
+  }
+  GetAllReportLottery(){
+    this.http.requestGet(`/get/check_report_lottery/${this.FromGroupFilter.value.lottery_date}/${this.FromGroupFilter.value.country_id}/${this.FromGroupFilter.value.member_id}`).subscribe((res:any)=>{
+      this.HistoryLottery = res.data;
     });
   }
   GetListHistoryLottery(){
-    this.http.requestGet(`get/history/lottery/${this.FromGroupFilter.value.member_id}/${this.FromGroupFilter.value.country_id}/${this.FromGroupFilter.value.lottery_date}`).subscribe((res:any)=>{
-      this.HistoryLottery = res.data;
-    });
+    // this.http.requestGet(`get/history/lottery/${this.FromGroupFilter.value.member_id}/${this.FromGroupFilter.value.country_id}/${this.FromGroupFilter.value.lottery_date}`).subscribe((res:any)=>{
+    //   this.HistoryLottery = res.data;
+    // });
+    this.GetAllReportLottery();
+    this.GetSumReport();
   }
   OnDeleteHistoryLottery(HistoryLotterys){
     var r = confirm(`คุณต้องการที่ลบการซื้อนี้ ${HistoryLotterys.number} = (${HistoryLotterys.price_1}x${HistoryLotterys.price_2})`);

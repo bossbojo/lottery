@@ -40,7 +40,7 @@
   </form>
   <div class="row" *ngIf="SumReport">
     <div class="col-12">
-      <div class="header-lottery">
+      <div class="header-lottery" *ngIf="SumReport.length != 0">
         <!-- <span class="report-lottery">
           <i class="fas fa-file-alt"></i>
         </span> -->
@@ -75,13 +75,23 @@
       <tbody class="text-center" *ngIf="DataCountry">
         <tr *ngFor="let HistoryLotterys of HistoryLottery">
           <th scope="col">
-            <ng-container *ngIf="HistoryLotterys.check == 'wat'">
+            <ng-container *ngIf="HistoryLotterys.status == 'wat'">
               <i class="fas fa-spinner fa-spin" style="color: burlywood;"></i>
             </ng-container>
-            <ng-container *ngIf="HistoryLotterys.check == 'icr'">
+            <ng-container *ngIf="(HistoryLotterys.f_check_UpAndDown == 0 && 
+                                  HistoryLotterys.f_check_Up == 0 && 
+                                  HistoryLotterys.f_check_Down == 0 &&
+                                  HistoryLotterys.f_check_Straight == 0 && 
+                                  HistoryLotterys.f_check_Notstraight == 0) && 
+                                  HistoryLotterys.status == 'hav'">
               <i class="fas fa-times" style="color: red;"></i>
             </ng-container>
-            <ng-container *ngIf="HistoryLotterys.check != 'icr' && HistoryLotterys.check != 'wat'">
+            <ng-container *ngIf="(HistoryLotterys.f_check_UpAndDown != 0 || 
+                                  HistoryLotterys.f_check_Up != 0 || 
+                                  HistoryLotterys.f_check_Down != 0 ||
+                                  HistoryLotterys.f_check_Straight != 0 || 
+                                  HistoryLotterys.f_check_Notstraight != 0) && 
+                                  HistoryLotterys.status == 'hav'">
               <i class="fas fa-check" style="color: goldenrod;"></i>
             </ng-container>
           </th>
@@ -136,3 +146,4 @@
     </div>
   </div>
 </div>
+

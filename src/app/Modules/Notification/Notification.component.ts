@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationComponent implements OnInit {
   Url =UrlConfig
+  TabName = '1';
   constructor() { }
 
   ngOnInit() {

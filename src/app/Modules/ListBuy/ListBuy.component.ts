@@ -23,6 +23,7 @@ export class ListBuyComponent implements OnInit {
   conutry: string = '';
   DataFrom: m_Copy[] = [];
   reword = false;
+  rewordonly = false;
   DataCountry: any;
   DataMember: any;
   DataPlay: any;
@@ -65,14 +66,25 @@ export class ListBuyComponent implements OnInit {
       alert("กรุณากรอบข้อมูลให้ครบ");
     }
   }
-  OnRefreshFormat(){
-    this.copy = this.copy.replace(/[^a-zA-Z0-9-=,\n]/g,' ');
-    this.copy = this.copy.replace('\n','');
-    for (let i = 0; i < this.copy.length; i++) {  
-      this.copy = this.copy.replace('  ',',');
-      this.copy = this.copy.replace(',,','');
+  OnRefreshFormat() {
+    this.copy = this.copy.replace(/[^a-zA-Z0-9-=,\n ]/g, ' ');
+    this.copy = this.copy.replace('\n', '');
+    for (let i = 0; i < this.copy.length; i++) {
+      this.copy = this.copy.replace('  ', ',');
+      this.copy = this.copy.replace(',,', '');
     }
     this.OnCopy();
+  }
+  OnRewordonly() {
+    this.reword = false;
+    this.OnCopy();
+  }
+  OnReword() {
+    this.rewordonly = false;
+    this.OnCopy();
+  }
+  OnChangeDate(){
+    this.ngOnInit();
   }
   OnCopy() {
     this.DataFrom = [];
@@ -103,9 +115,13 @@ export class ListBuyComponent implements OnInit {
       } else {
         type = 'three';
       }
-      this.DataFrom.push(new m_Copy(element, parseInt(price1), parseInt(price2), type));
-      if(this.reword && element.length == 2){
-        this.DataFrom.push(new m_Copy(element.split('')[1]+""+element.split('')[0], parseInt(price1), parseInt(price2), type));
+      if (this.rewordonly == false) {
+        this.DataFrom.push(new m_Copy(element, parseInt(price1), parseInt(price2), type));
+        if (this.reword && element.length == 2) {
+          this.DataFrom.push(new m_Copy(element.split('')[1] + "" + element.split('')[0], parseInt(price1), parseInt(price2), type));
+        }
+      } else {
+        this.DataFrom.push(new m_Copy(element.split('')[1] + "" + element.split('')[0], parseInt(price1), parseInt(price2), type));
       }
     });
 

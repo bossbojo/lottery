@@ -1,3 +1,4 @@
+import { GlobalValueService } from './../../services/global-value.service';
 import { HttpService } from './../../services/http.service';
 import { UrlConfig } from './../../configs/url.config';
 import { Component, OnInit } from '@angular/core';
@@ -10,13 +11,13 @@ import { Component, OnInit } from '@angular/core';
 export class BookComponent implements OnInit {
   Url = UrlConfig
   Member:any;
-  constructor(private http:HttpService) { }
+  constructor(private http:HttpService,private Global:GlobalValueService) { }
 
   ngOnInit() {
     this.OnGetData();
   }
   OnGetData(){
-    this.http.requestGet('get/all/member').subscribe((res:any)=>{
+    this.http.requestGet('get/report_member').subscribe((res:any)=>{
       this.Member = res.data;
       console.log(this.Member);
        
@@ -40,12 +41,19 @@ export class BookComponent implements OnInit {
       alert("ชื่อว่างเปล่า");
     }
   }
-  OnPay() {
-    var person = prompt("ใส่จำนวนเงินที่ต้องการจ่าย:", '500');
-    if (person == null || person == "") {
-      console.log(person);
+  OnPay(Id,price_in) {
+    var price = prompt("ใส่จำนวนเงินที่ต้องการจ่าย:", price_in);
+    if (price == null || price == "") {
+      console.log(price);
     } else {
-      console.log(person);
+      let obj = {
+        "user_id": this.Global.User.Id,
+        "member_id": Id,
+        "paid": price
+      }
+      this.http.requestPost('create/money_income',obj).subscribe((res:any)=>{
+        this.OnGetData();
+      });
     }
   }
   OnDelete() {
