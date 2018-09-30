@@ -72,6 +72,7 @@ export class CheckLotteryComponent implements OnInit {
     }
   }
   OnViewCorrectCheckLottery(data){
+    this.ViewLotteryCorrect = null
     this.http.requestGet(`get/check_report_lottery_lot_dt/only_correct/${data.lot_dt.replace('T00:00:00','')}/${data.Country_id}`).subscribe((res:any)=>{
       this.ViewLotteryCorrect = res.data;
       console.log(res.data);

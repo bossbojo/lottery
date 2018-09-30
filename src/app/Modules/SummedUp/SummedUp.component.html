@@ -20,7 +20,7 @@
   <div class="text-center">
     <div>
       <h3 class="total">
-        {{SUMALL}}฿
+        {{SUMALL | number}}฿
         <br>ยอดรวดทั้งหมด
       </h3>
       <div class="row" *ngIf="SumReport" class="text-left">
@@ -34,7 +34,7 @@
                 <ng-container *ngIf="SumReports.Country_id == 1">รวมหวยไทย</ng-container>
                 <ng-container *ngIf="SumReports.Country_id == 2">รวมหวยลาว</ng-container>
                 <ng-container *ngIf="SumReports.Country_id == 3">รวมหวยฮานอย</ng-container>
-                = {{SumReports.price1+SumReports.price2}}฿
+                = {{SumReports.price1+SumReports.price2 | number}}฿
                 <span style="float: right;">{{SumReports.count_buying}} ตัว</span>
               </h6>
             </ng-container>
@@ -54,7 +54,7 @@
           </div>
         </div>
         <div class="col-6 text-right">
-         <span>ยอดรวม</span> {{SUMALL}}฿<br><span>ได้</span> {{Persent==100?SUMALL:SUMALL/100*Persent}}฿
+         <span>ยอดรวม</span> {{SUMALL | number}}฿<br><span>ได้</span> {{(Persent==100?SUMALL:SUMALL/100*Persent) | number}}฿
         </div>
       </div>
     </div>

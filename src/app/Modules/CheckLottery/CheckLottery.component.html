@@ -195,28 +195,31 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
-          <i class="fas fa-edit"></i> หวยที่ถูก</h5>
+            <i class="fas fa-check-square"></i> หวยที่ถูก</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" *ngIf="ViewLotteryCorrect">
         <ng-container *ngFor="let ViewLottery of ViewLotteryCorrect">
+          <ng-container *ngIf="!ViewLottery.correct">
+            <h1 class="text-center" style="color: red;"><i class="far fa-times-circle"></i> ไม่มีสมาชิกที่ถูกหวย</h1>
+          </ng-container>
           <ng-container *ngFor="let ViewLotteryCorrects of ViewLottery.correct">
-            ชื่อชมาชิก <span class="badge badge-primary"><i class="fas fa-male"></i> {{ViewLotteryCorrects.Name}}</span><br>
+            ชื่อสมาชิก <span class="badge badge-primary"><i class="fas fa-male"></i> {{ViewLotteryCorrects.Name}}</span><br>
             <ng-container *ngFor="let Corrects of ViewLotteryCorrects.cl">
                 <ng-container *ngIf="Corrects.number.length == 2">
-                  {{Corrects.number}} = {{Corrects.price_1}} x {{Corrects.price_2}} <br>
-                  <span *ngIf="Corrects.f_check_Up != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกบน = {{Corrects.f_check_Up}}฿</span> 
+                  {{Corrects.number}} = {{Corrects.price_1 | number}} x {{Corrects.price_2 | number}} <br>
+                  <span *ngIf="Corrects.f_check_Up != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกบน = {{Corrects.f_check_Up | number}}฿</span> 
                   <span *ngIf="Corrects.f_check_Up != 0 && Corrects.f_check_Down != 0">เเละ</span>
-                  <span *ngIf="Corrects.f_check_Down != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกล่าง = {{Corrects.f_check_Down}}฿</span> 
+                  <span *ngIf="Corrects.f_check_Down != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกล่าง = {{Corrects.f_check_Down | number}}฿</span> 
                   <br>
                 </ng-container>
                 <ng-container *ngIf="Corrects.number.length == 3">
-                    {{Corrects.number}} = {{Corrects.price_1}} x {{Corrects.price_2}} <br>
-                    <span *ngIf="Corrects.f_check_Straight != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกเต็ง = {{Corrects.f_check_Straight}}฿</span> 
+                    {{Corrects.number}} = {{Corrects.price_1 | number}} x {{Corrects.price_2 | number}} <br>
+                    <span *ngIf="Corrects.f_check_Straight != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกเต็ง = {{Corrects.f_check_Straight | number}}฿</span> 
                     <span *ngIf="Corrects.f_check_Straight != 0 && Corrects.f_check_Notstraight != 0">เเละ</span>
-                    <span *ngIf="Corrects.f_check_Notstraight != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกโต็ด = {{Corrects.f_check_Notstraight}}฿</span> 
+                    <span *ngIf="Corrects.f_check_Notstraight != 0" class="badge badge-pill badge-success"><i class="fas fa-check" style="color: goldenrod;"></i>  ถูกโต็ด = {{Corrects.f_check_Notstraight | number}}฿</span> 
                     <br>
                 </ng-container>
                 <hr>

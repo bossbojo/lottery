@@ -24,7 +24,7 @@
         <tr *ngFor="let Members of Member">
           <th scope="row">{{Members.Id}}</th>
           <td class="text-left">{{Members.Name}}</td>
-          <td>{{Members.Total?Members.Total:0}}</td>
+          <td>{{(Members.Total?Members.Total:0) | number}}฿</td>
           <td>
             <!-- <button class="btn btn-light" (click)="OnPay()"><i class="fas fa-eye"></i> ดู</button> -->
             <button class="btn btn-warning" (click)="OnPay(Members.Id,Members.Total)"><i class="fas fa-coins"></i> จ่าย</button>
