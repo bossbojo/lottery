@@ -28,6 +28,7 @@
           <div class="header-lottery" *ngIf="SumReport.length != 0">
             <ng-container *ngFor="let SumReports of SumReport">
               <h6>
+                <input type="radio" name="lot" (change)="OnChangePick(SumReports)">
                 <img *ngIf="SumReports.Country_id == 1" src="assets/img/Flag_of_Thailand.svg" width="25px" alt="">
                 <img *ngIf="SumReports.Country_id == 2" src="assets/img/Flag_of_Laos.svg" width="25px" alt="">
                 <img *ngIf="SumReports.Country_id == 3" src="assets/img/Flag_of_Vietnam.png" width="25px" alt="">
@@ -54,9 +55,9 @@
           </div>
         </div>
         <div class="col-6 text-right">
-         <span>ยอดรวม</span> {{SUMALL | number}}฿<br>
-         <span>ได้</span> {{(Persent==100?SUMALL:SUMALL/100*Persent) | number}}฿<br>
-         <span>หักลบเเล้ว</span> {{(SUMALL - (Persent==100?SUMALL:SUMALL/100*Persent)) | number}}฿
+         <span>ยอดรวม</span> {{SumBylot | number}}฿<br>
+         <span>ได้</span> {{(Persent==100?SumBylot:SumBylot/100*Persent) | number}}฿<br>
+         <span>หักลบเเล้ว</span> {{(SumBylot - (Persent==100?SumBylot:SumBylot/100*Persent)) | number}}฿
         </div>
       </div>
     </div>

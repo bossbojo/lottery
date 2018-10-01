@@ -46,15 +46,15 @@
         </span> -->
         <ng-container *ngFor="let SumReports of SumReport">
           <h6 *ngIf="SumReports.Country_id == 1">
-            <img src="assets/img/Flag_of_Thailand.svg" width="25px" alt=""> รวมหวยไทย = {{SumReports.price1+SumReports.price2}}฿
+            <img src="assets/img/Flag_of_Thailand.svg" width="25px" alt=""> รวมหวยไทย = {{SumReports.price1+SumReports.price2 | number}}฿
             <span style="float: right;">{{SumReports.count_buying}} ตัว</span>
           </h6>
           <h6 *ngIf="SumReports.Country_id == 2">
-            <img src="assets/img/Flag_of_Laos.svg" width="25px" alt=""> รวมหวยลาว = {{SumReports.price1+SumReports.price2}}฿
+            <img src="assets/img/Flag_of_Laos.svg" width="25px" alt=""> รวมหวยลาว = {{SumReports.price1+SumReports.price2 | number}}฿
             <span style="float: right;">{{SumReports.count_buying}} ตัว</span>
           </h6>
           <h6 *ngIf="SumReports.Country_id == 3">
-            <img src="assets/img/Flag_of_Vietnam.png" width="25px" alt=""> รวมหวยฮานอย = {{SumReports.price1+SumReports.price2}}฿
+            <img src="assets/img/Flag_of_Vietnam.png" width="25px" alt=""> รวมหวยฮานอย = {{SumReports.price1+SumReports.price2 | number}}฿
             <span style="float: right;">{{SumReports.count_buying}} ตัว</span>
           </h6>
         </ng-container>
@@ -95,7 +95,7 @@
               <i class="fas fa-check" style="color: goldenrod;"></i>
             </ng-container>
           </th>
-          <td class="text-left">{{HistoryLotterys.number}} = ({{HistoryLotterys.price_1}}x{{HistoryLotterys.price_2}})</td>
+          <td class="text-left">{{HistoryLotterys.number}} = ({{HistoryLotterys.price_1 | number}}x{{HistoryLotterys.price_2 | number}})</td>
           <td class="text-left">
             <img *ngIf="HistoryLotterys.Country_id == 1" src="assets/img/Flag_of_Thailand.svg" width="15px" alt="">
             <img *ngIf="HistoryLotterys.Country_id == 2" src="assets/img/Flag_of_Laos.svg" width="15px" alt="">

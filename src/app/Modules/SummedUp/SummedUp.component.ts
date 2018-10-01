@@ -16,6 +16,7 @@ export class SummedUpComponent implements OnInit {
   SUMALL = 0;
   Persent = 100;
   FromGroupFilter: FormGroup;
+  SumBylot = 0;
   constructor(private build: FormBuilder, private http: HttpService, private datep: DatePipe) {
     this.FromGroupFilter = this.build.group({
       lottery_date: datep.transform(this.today, 'yyyy-MM-dd'),
@@ -32,5 +33,8 @@ export class SummedUpComponent implements OnInit {
             this.SUMALL += element.price1+element.price2;
       });
     });
+  }
+  OnChangePick(data){
+    this.SumBylot = data.price1 +data.price2;
   }
 }
