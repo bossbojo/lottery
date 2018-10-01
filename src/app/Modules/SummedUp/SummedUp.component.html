@@ -54,7 +54,9 @@
           </div>
         </div>
         <div class="col-6 text-right">
-         <span>ยอดรวม</span> {{SUMALL | number}}฿<br><span>ได้</span> {{(Persent==100?SUMALL:SUMALL/100*Persent) | number}}฿
+         <span>ยอดรวม</span> {{SUMALL | number}}฿<br>
+         <span>ได้</span> {{(Persent==100?SUMALL:SUMALL/100*Persent) | number}}฿<br>
+         <span>หักลบเเล้ว</span> {{(SUMALL - (Persent==100?SUMALL:SUMALL/100*Persent)) | number}}฿
         </div>
       </div>
     </div>

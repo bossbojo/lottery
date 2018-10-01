@@ -67,11 +67,14 @@ export class ListBuyComponent implements OnInit {
     }
   }
   OnRefreshFormat() {
+    console.log('s');
+    
     this.copy = this.copy.replace(/[^a-zA-Z0-9-=,\n ]/g, ' ');
     this.copy = this.copy.replace('\n', '');
     for (let i = 0; i < this.copy.length; i++) {
       this.copy = this.copy.replace('  ', ',');
       this.copy = this.copy.replace(',,', '');
+      this.copy = this.copy.replace(' ', ',');
     }
     this.OnCopy();
   }
